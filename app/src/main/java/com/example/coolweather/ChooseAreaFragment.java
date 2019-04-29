@@ -36,7 +36,7 @@ public class ChooseAreaFragment extends Fragment {
     public static final int LEVEL_CITY = 1;
     public static final int LEVEL_COUNTY = 2;
 
-    private static final String JSON_INTERFACE = "http://guolin.tech/api/china";
+    private static final String JSON_INTERFACE = "http://guolin.tech/api/china/";
     private ProgressDialog progressDialog;
     private TextView titleText;
     private Button backButton;
@@ -130,7 +130,7 @@ public class ChooseAreaFragment extends Fragment {
     private void queryCities() {
         titleText.setText(selectedProvince.getProvinceName());
         backButton.setVisibility(View.VISIBLE);
-        cityList = DataSupport.where("provinceid=?", String.valueOf(selectedProvince.getId())).find(City.class);
+        cityList = DataSupport.where("provinceId = ?", String.valueOf(selectedProvince.getId())).find(City.class);
 
         if (cityList.size() > 0) {
             dataList.clear();
@@ -163,7 +163,7 @@ public class ChooseAreaFragment extends Fragment {
         } else {
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode = selectedCity.getCityCode();
-            String address = JSON_INTERFACE + provinceCode + cityCode;
+            String address = JSON_INTERFACE + provinceCode + "/"+cityCode;
             queryFromServer(address, "county");
         }
     }
@@ -178,7 +178,7 @@ public class ChooseAreaFragment extends Fragment {
                     @Override
                     public void run() {
                         closeProgressDialog();
-                        Toast.makeText(getContext(),"加载失败",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"加载失败...",Toast.LENGTH_SHORT).show();
                     }
                 });
             }

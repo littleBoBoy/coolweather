@@ -50,6 +50,7 @@ public class Utility {
                 for(int i=0;i<allCities.length();i++){
                     JSONObject cityObject=allCities.getJSONObject(i);
                     City city=new City();
+                    city.setProvinceId(provinceId);
                     city.setCityName(cityObject.getString("name"));
                     city.setCityCode(cityObject.getInt("id"));
                     city.save();
